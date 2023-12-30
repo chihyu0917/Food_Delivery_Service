@@ -95,6 +95,12 @@
   object-fit: cover;
 }
 
+.ads img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
 .restaurant-list {
   display: flex;
   flex-wrap: wrap;
