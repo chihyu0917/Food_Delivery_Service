@@ -25,15 +25,15 @@
 // export default RestaurantsList;
 
 
-// import React, { useState, useEffect } from 'react';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+// import React, { useState } from 'react';
 import './App.css'; // 假設你有一個App.css文件來添加CSS樣式
-import laoShiLinImage from './images/lao-shi-lin-kao-rou-fan.png';
-import pizzaHutImage from './images/pizzahut.png';
-import dominosImage from './images/dominos.png';
-import grazieImage from './images/grazie.png';
-import wooteaImage from './images/wootea.png';
-import yuImage from './images/yu.png';
+// import laoShiLinImage from './images/lao-shi-lin-kao-rou-fan.png';
+// import pizzaHutImage from './images/pizzahut.png';
+// import dominosImage from './images/dominos.png';
+// import grazieImage from './images/grazie.png';
+// import wooteaImage from './images/wootea.png';
+// import yuImage from './images/yu.png';
 import adsImage from './images/ads.gif';
 import logo_word from './images/logo_word.png';
 import logo_pic from './images/logo_pic.png';
@@ -41,63 +41,63 @@ import logo_pic from './images/logo_pic.png';
 // import RestaurantDetail from './RestaurantDetail';
 
 // 假設數據
-const restaurants = [
-  {
-    id: 1,
-    name: '老士林烤肉飯 (新店中正店)',
-    rating: '4.7',
-    reviews: '2000+',
-    category: 'Taiwanese',
-    offer: '🎉 $300折$30',
-    image: laoShiLinImage,
-  },
-  {
-    id: 2,
-    name: 'Pizza Hut 必勝客 (新北北新店)',
-    rating: '4.9',
-    reviews: '3000+',
-    category: 'American',
-    offer: '🎉 $349打85折',
-    image: pizzaHutImage,
-  },
-  {
-    id: 3,
-    name: "達美樂Domino's (新店北新店)",
-    rating: '4.6',
-    reviews: '100+',
-    category: 'American',
-    offer: '🎉 全尺寸披薩買一送一',
-    image: dominosImage,
-  },
-  {
-    id: 4,
-    name: '古拉爵Grazie (新北新店家樂福店)',
-    rating: '4.6',
-    reviews: '1000+',
-    category: 'American',
-    offer: '🎉 $免外送服務費',
-    image: grazieImage,
-  },
-  {
-    id: 5,
-    name: '五桐號 WooTEA (文山景美店)',
-    rating: '4.9',
-    reviews: '1000+',
-    category: 'Drinks',
-    offer: '🎉 $100打9折',
-    image: wooteaImage,
-  },
-  {
-    id: 6,
-    name: '郁 日式炸豬排 (新店中正店)',
-    rating: '4.8',
-    reviews: '1000+',
-    category: 'Japanese',
-    offer: '🎉 $免外送服務費',
-    image: yuImage,
-  },
-  // ... 其他餐廳數據
-];
+// const restaurants = [
+//   {
+//     id: 1,
+//     name: '老士林烤肉飯 (新店中正店)',
+//     rating: '4.7',
+//     reviews: '2000+',
+//     category: 'Taiwanese',
+//     offer: '🎉 $300折$30',
+//     image: laoShiLinImage,
+//   },
+//   {
+//     id: 2,
+//     name: 'Pizza Hut 必勝客 (新北北新店)',
+//     rating: '4.9',
+//     reviews: '3000+',
+//     category: 'American',
+//     offer: '🎉 $349打85折',
+//     image: pizzaHutImage,
+//   },
+//   {
+//     id: 3,
+//     name: "達美樂Domino's (新店北新店)",
+//     rating: '4.6',
+//     reviews: '100+',
+//     category: 'American',
+//     offer: '🎉 全尺寸披薩買一送一',
+//     image: dominosImage,
+//   },
+//   {
+//     id: 4,
+//     name: '古拉爵Grazie (新北新店家樂福店)',
+//     rating: '4.6',
+//     reviews: '1000+',
+//     category: 'American',
+//     offer: '🎉 $免外送服務費',
+//     image: grazieImage,
+//   },
+//   {
+//     id: 5,
+//     name: '五桐號 WooTEA (文山景美店)',
+//     rating: '4.9',
+//     reviews: '1000+',
+//     category: 'Drinks',
+//     offer: '🎉 $100打9折',
+//     image: wooteaImage,
+//   },
+//   {
+//     id: 6,
+//     name: '郁 日式炸豬排 (新店中正店)',
+//     rating: '4.8',
+//     reviews: '1000+',
+//     category: 'Japanese',
+//     offer: '🎉 $免外送服務費',
+//     image: yuImage,
+//   },
+//   // ... 其他餐廳數據
+// ];
 
 const RestaurantCard = ({ name, rating, reviews, category, offer, image }) => {
   // 状态钩子用于跟踪爱心是否被点击
@@ -132,14 +132,14 @@ const RestaurantCard = ({ name, rating, reviews, category, offer, image }) => {
 
 // 應用主組件
 const App = () => {
-  // const [restaurants, setRestaurants] = useState([]);
+  const [restaurants, setRestaurants] = useState([]);
 
-  // useEffect(() => {
-  //   fetch('http://localhost:3001/api/restaurants')
-  //     .then(response => response.json())
-  //     .then(data => setRestaurants(data))
-  //     .catch(error => console.error('Error fetching data:', error));
-  // }, []);
+  useEffect(() => {
+    fetch('http://localhost:3001/api/restaurants')
+      .then(response => response.json())
+      .then(data => setRestaurants(data))
+      .catch(error => console.error('Error fetching data:', error));
+  }, []);
 
   return (
     <div className="app">
