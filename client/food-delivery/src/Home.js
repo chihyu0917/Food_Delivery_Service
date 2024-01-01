@@ -1,9 +1,14 @@
+// Filename - pages/index.js
+
 import React, { useState, useEffect } from 'react';
-// import './App.css'; // 假設你有一個App.css文件來添加CSS樣式
-// import adsImage from './images/ads.gif';
+import './App.css'; // 假設你有一個App.css文件來添加CSS樣式
+import adsImage from './images/ads.gif';
+// import logo_word from './images/logo_word.png';
+// import logo_pic from './images/logo_pic.png';
 
 const RestaurantCard = ({ name, rating, reviews, category, offer, image, like }) => {
     // 状态钩子用于跟踪爱心是否被点击
+    // const [isFavorite, setIsFavorite] = useState(false);
     const [isFavorite, setIsFavorite] = useState(like === 'True');
   
     // 点击处理函数切换爱心状态
@@ -33,49 +38,34 @@ const RestaurantCard = ({ name, rating, reviews, category, offer, image, like })
     );
   };
 
-async function fetchRestaurants() {
-	try {
-	  const response = await fetch('http://localhost:3001/api/restaurants');
-	  if (!response.ok) {
-		throw new Error(`HTTP error! status: ${response.status}`);
-	  }
-	  const data = await response.json();
-	  return data;
-	} catch (error) {
-	  console.error("Error fetching data:", error);
-	  return []; // 返回一个空数组以避免进一步的错误
-	}
-}
-  
+const Home = () => {
+    const [restaurants, setRestaurants] = useState([]);
 
-const Like = () => {
-	const [likedRestaurants, setLikedRestaurants] = useState([]);
-
-	useEffect(() => {
-		// 假设 fetchRestaurants() 是一个获取所有餐厅数据的函数
-		fetchRestaurants().then(data => {
-		const filteredData = data.filter(restaurant => restaurant.like === 'True');
-		setLikedRestaurants(filteredData);
-		});
-	}, []);
+    useEffect(() => {
+        fetch('http://localhost:3001/api/restaurants')
+        .then(response => response.json())
+        .then(data => setRestaurants(data))
+        .catch(error => console.error('Error fetching data:', error));
+    }, []);
 
 	return (
-		<div className="like">
-			<main>
-				<div className="listtitle">
-					<h3>Like List</h3>
-				</div>
-				<section className="restaurant-list">
-					{/* {restaurants.map((restaurant) => (
-						<RestaurantCard key={restaurant.id} {...restaurant} />
-					))} */}
-					{likedRestaurants.map(restaurant => (
-						<RestaurantCard key={restaurant.id} {...restaurant} />
-					))}
-				</section>
-			</main>
-		</div>
+        <div className="home">
+            <main>
+                <div className="ads">
+                    <img src={adsImage} alt={'ads'}></img>
+                </div>
+                <div className="listtitle">
+                        <h3>Restaurant List</h3>
+                </div>
+                <section className="restaurant-list">
+                    {restaurants.map((restaurant) => (
+                        <RestaurantCard key={restaurant.id} {...restaurant} />
+                    ))}
+                </section>
+            </main>
+            
+        </div>
 	);
 };
 
-export default Like;
+export default Home;

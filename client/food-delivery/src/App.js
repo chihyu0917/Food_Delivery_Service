@@ -11,6 +11,7 @@ import logo_word from './images/logo_word.png';
 import logo_pic from './images/logo_pic.png';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 // import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import Home from './Home'
 import Like from './Like';
 import Order from './Order';
 // import { Router } from 'express';
@@ -26,6 +27,7 @@ import Order from './Order';
 //     category: 'Taiwanese',
 //     offer: '🎉 $300折$30',
 //     image: laoShiLinImage,
+//     like: 'False',
 //   },
 //   {
 //     id: 2,
@@ -75,66 +77,70 @@ import Order from './Order';
 //   // ... 其他餐廳數據
 // ];
 
-const RestaurantCard = ({ name, rating, reviews, category, offer, image }) => {
-  // 状态钩子用于跟踪爱心是否被点击
-  const [isFavorite, setIsFavorite] = useState(false);
+// const RestaurantCard = ({ name, rating, reviews, category, offer, image }) => {
+//   // 状态钩子用于跟踪爱心是否被点击
+//   const [isFavorite, setIsFavorite] = useState(false);
 
-  // 点击处理函数切换爱心状态
-  const toggleFavorite = () => {
-    setIsFavorite(!isFavorite);
-  };
+//   // 点击处理函数切换爱心状态
+//   const toggleFavorite = () => {
+//     setIsFavorite(!isFavorite);
+//   };
 
-  return (
-    <div className="restaurant-card">
-      <img src={image} alt={name} />
-      <button className={`favorite-btn ${isFavorite ? 'active' : ''}`} onClick={toggleFavorite} title='Add to Favorite Restaurant'>
-        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" data-testid="favorite-unselected">
-          <path d="M16 5c2.5 0 4 1.9 4 4.2 0 1.2-.6 2.3-1.3 3.1C17.5 13.5 12 18 12 18s-5.5-4.5-6.7-5.7C4.5 11.5 4 10.4 4 9.2 4 6.9 5.5 5 8 5c1.7 0 3.3 1.6 4 3 .7-1.4 2.3-3 4-3zm0-3c-1.5 0-2.9.6-4 1.4C10.9 2.5 9.5 2 8 2 4 2 1 5.1 1 9.2c0 1.9.8 3.7 2.2 5.2 1.4 1.5 8.8 7.5 8.8 7.5s7.4-6 8.8-7.5c1.4-1.5 2.2-3.3 2.2-5.2C23 5.1 20 2 16 2z">
-          </path>
-        </svg>
-      </button>
-      <div className="restaurant-info">
-        <h2>{name}</h2>
-        <p className="offer">{offer}</p>
-        <p className="category">{category}</p>
-        <div className="rating">
-          <span>{rating}</span>
-          <span>({reviews})</span>
-        </div>
-      </div>
-    </div>
-  );
-};
+//   return (
+//     <div className="restaurant-card">
+//       <img src={image} alt={name} />
+//       <button className={`favorite-btn ${isFavorite ? 'active' : ''}`} onClick={toggleFavorite} title='Add to Favorite Restaurant'>
+//         <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" data-testid="favorite-unselected">
+//           <path d="M16 5c2.5 0 4 1.9 4 4.2 0 1.2-.6 2.3-1.3 3.1C17.5 13.5 12 18 12 18s-5.5-4.5-6.7-5.7C4.5 11.5 4 10.4 4 9.2 4 6.9 5.5 5 8 5c1.7 0 3.3 1.6 4 3 .7-1.4 2.3-3 4-3zm0-3c-1.5 0-2.9.6-4 1.4C10.9 2.5 9.5 2 8 2 4 2 1 5.1 1 9.2c0 1.9.8 3.7 2.2 5.2 1.4 1.5 8.8 7.5 8.8 7.5s7.4-6 8.8-7.5c1.4-1.5 2.2-3.3 2.2-5.2C23 5.1 20 2 16 2z">
+//           </path>
+//         </svg>
+//       </button>
+//       <div className="restaurant-info">
+//         <h2>{name}</h2>
+//         <p className="offer">{offer}</p>
+//         <p className="category">{category}</p>
+//         <div className="rating">
+//           <span>{rating}</span>
+//           <span>({reviews})</span>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
 
 // 應用主組件
 const App = () => {
-  const [restaurants, setRestaurants] = useState([]);
+  // const [restaurants, setRestaurants] = useState([]);
 
-  useEffect(() => {
-    fetch('http://localhost:3001/api/restaurants')
-      .then(response => response.json())
-      .then(data => setRestaurants(data))
-      .catch(error => console.error('Error fetching data:', error));
-  }, []);
+  // useEffect(() => {
+  //   fetch('http://localhost:3001/api/restaurants')
+  //     .then(response => response.json())
+  //     .then(data => setRestaurants(data))
+  //     .catch(error => console.error('Error fetching data:', error));
+  // }, []);
 
   return (
     <BrowserRouter>
       <div className="app">
-        <header className="app-header">
+        {/* <header className="app-header">
           <title>Gourmet Go Xindian</title>
-          <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-          <nav>
-            <ul>
-              <li><img src={logo_pic} alt={'logopic'}></img></li>
-              <li><img src={logo_word} alt={'logoname'}></img></li>
-              <li><Link to="/like">Like</Link></li>
-              <li><Link to="/order">My Order</Link></li>
-            </ul>
-          </nav>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0"/> */}
+          <div className='app-header'>
+            <nav>
+              <ul>
+                <li><img src={logo_pic} alt={'logopic'}></img></li>
+                <li><img src={logo_word} alt={'logoname'}></img></li>
+                <li><Link to="/">Home</Link></li>
+                <li><Link to="/like">Like</Link></li>
+                <li><Link to="/order">My Order</Link></li>
+              </ul>
+            </nav>
+          </div>
           <Routes>
                   {/* <li><img src={logo_pic} alt={'logopic'}></img></li>
                   <li><img src={logo_word} alt={'logoname'}></img></li>
                   <li><a href="/">Home</a></li> */}
+            <Route exact path="/" element={<Home />} />
             <Route path="/like" element={<Like />} />
             <Route path="/order" element={<Order />} />
                   {/* <li><a href="/">Home</a></li> 
@@ -143,28 +149,23 @@ const App = () => {
           </Routes>
             
           {/* <hr></hr> */}
-        </header>
-        <main>
+        {/* </header> */}
+        {/* <main>
           <div className="ads">
             <img src={adsImage} alt={'ads'}></img>
-          </div>
-          <div className="listtitle">
+          </div> */}
+          {/* <div className="listtitle">
             <h3>Restaurant List</h3>
-          </div>
-          <section className="restaurant-list">
+          </div> */}
+          {/* <section className="restaurant-list">
             {restaurants.map((restaurant) => (
               <RestaurantCard key={restaurant.id} {...restaurant} />
             ))}
-            {/* <ul>
-              {restaurants.map(restaurant => (
-                <li key={restaurant.id}>{restaurant.name}</li>
-              ))}
-            </ul> */}
-          </section>
-          <footer>
+          </section> */}
+          {/* <footer>
               <p>GitHub <a href="https://github.com/chihyu0917">@chihyu0917</a></p>
           </footer>
-        </main>
+        </main> */}
       </div>
     </BrowserRouter>
   );
