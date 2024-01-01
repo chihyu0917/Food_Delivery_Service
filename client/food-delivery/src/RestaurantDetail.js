@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
+import './RestaurantDetail.css';
 import { useParams } from 'react-router-dom';
+import adsShortImage from './images/ads_short.gif';
 
 
 // 假設數據
@@ -34,28 +35,28 @@ const SingleMenu = [
     name: '味噌湯',
     price: '30',
     description: '溫暖且複合蛋白質的味噌熱湯',
-    image: '',
+    image: 'https://images.deliveryhero.io/image/fd-tw/Products/67515084.jpg',
   },
   {
     id: 2,
     name: '白飯',
     price: '30',
     description: '',
-    image: '',
+    image: 'https://images.deliveryhero.io/image/fd-tw/Products/81571714.jpg',
   },
   {
     id: 3,
     name: '麻辣米血',
     price: '40',
     description: '',
-    image: '',
+    image: 'https://images.deliveryhero.io/image/fd-tw/Products/75554204.jpg',
   },
   {
     id: 4,
     name: '溏心蛋',
     price: '30',
     description: '單吃或配飯都好吃',
-    image: '',
+    image: 'https://images.deliveryhero.io/image/fd-tw/Products/67515085.jpg',
   }
 ]
 
@@ -75,7 +76,8 @@ const Menulist = ({ id, name, price, description, image }) => {
 const RestaurantDetail = () => {
     const { id } = useParams(); // 获取路由参数中的id
     const [restaurant, setRestaurant] = useState(null);
-    console.log(id);
+    const [menu, setMenu] = useState(null);
+    // console.log(id);
 
     useEffect(() => {
         // 根据id获取餐厅详细信息，这里是个示例，您需要根据实际API调整
@@ -86,13 +88,29 @@ const RestaurantDetail = () => {
     }, [id]);
     
 
-    if (!restaurant) {
-        return <div>Loading...</div>;
-      }
+    // if (!restaurant) {
+    //     return <div>Loading...</div>;
+    // }
+
+
+    useEffect(() => {
+        // 根据id获取餐厅详细信息，这里是个示例，您需要根据实际API调整
+        fetch(`http://localhost:3001/api/menu/${id}`)
+        .then(response => response.json())
+        .then(data => setMenu(data))
+        .catch(error => console.error('Error fetching menu:', error));
+    }, [id]);
+    
+    if (!restaurant || !menu) {
+        return <div>Loading...</div>; // 这里合并了两个加载状态的检查
+    }
 
     return (
         <div className="restaurant-detail">
             <main>
+                <div className="ads">
+                    <img src={adsShortImage} alt={'ads'}></img>
+                </div>
                 <div className="listtitle">
                     <h1>{restaurant.name}</h1>
                     <p className="offer">{restaurant.offer}</p>
@@ -100,19 +118,26 @@ const RestaurantDetail = () => {
                         <span>{restaurant.rating}</span>
                         <span>({restaurant.reviews})</span>
                     </div>
-                    <h2>Popular Menu</h2>
+                    <hr></hr>
+                    <h2>Popular</h2>
                 </div>
                 <section className="menu-list">
-                    {PopularMenu.map((menu) => (
+                    {/* {PopularMenu.map((menu) => (
                         <Menulist key={menu.id} {...menu} />
+                    ))} */}
+                    {menu.popularMenu.map((oneMenu) => (
+                        <Menulist key={oneMenu.id} {...oneMenu} />
                     ))}
                 </section>
                 <div className="listtitle">
-                  <h2>Single Menu</h2>
+                  <h2>Others</h2>
                 </div>
                 <section className="menu-list">
-                    {SingleMenu.map((menu) => (
+                    {/* {SingleMenu.map((menu) => (
                         <Menulist key={menu.id} {...menu} />
+                    ))} */}
+                    {menu.singleMenu.map((oneMenu) => (
+                        <Menulist key={oneMenu.id} {...oneMenu} />
                     ))}
                 </section>
             </main>

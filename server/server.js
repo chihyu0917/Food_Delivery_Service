@@ -88,6 +88,34 @@ app.post('/api/restaurants/:id/like', async (req, res) => {
   }
 });
 
+app.get('/api/menu/:id', async (req, res) => {
+  const { id } = req.params; // 这是URL中传递的自定义id
+  const client = new MongoClient(uri);
+
+  try {
+    await client.connect();
+    const database = client.db("restaurantsDirectory");
+    const menus = database.collection("menu");
+
+    // 如果 id 是数字类型
+    const menu = await menus.findOne({ id: id });
+    // console.log("Restaurant found:", restaurant); // 调试输出
+
+    // 如果 id 是字符串类型
+    // const restaurant = await restaurants.findOne({ _id: ObjectId(id) });
+
+    if (!menu) {
+      return res.status(404).send({ message: 'Menu not found with the provided id.' });
+    }
+
+    res.json(menu);
+  } catch (e) {
+    res.status(500).send("Error fetching menu: " + e.message);
+  } finally {
+    await client.close();
+  }
+});
+
 
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
