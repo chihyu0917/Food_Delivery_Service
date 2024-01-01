@@ -16,6 +16,7 @@ import Like from './Like';
 import Order from './Order';
 // import { Router } from 'express';
 // import { Routes } from 'react-router-dom';
+import RestaurantDetail from './RestaurantDetail';
 
 // 假設數據
 // const restaurants = [
@@ -143,6 +144,7 @@ const App = () => {
             <Route exact path="/" element={<Home />} />
             <Route path="/like" element={<Like />} />
             <Route path="/order" element={<Order />} />
+            <Route path="/restaurant/:id" element={<RestaurantDetail />} />
                   {/* <li><a href="/">Home</a></li> 
                   <li><a href="/Like">Like</a></li> */}
                   {/* <li><a href="/">My Order</a></li> */}
