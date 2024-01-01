@@ -29,6 +29,34 @@ app.get('/api/restaurants', async (req, res) => {
   }
 });
 
+app.get('/api/restaurants/:id', async (req, res) => {
+  const { id } = req.params; // 这是URL中传递的自定义id
+  const client = new MongoClient(uri);
+
+  try {
+    await client.connect();
+    const database = client.db("restaurantsDirectory");
+    const restaurants = database.collection("restaurants");
+
+    // 如果 id 是数字类型
+    const restaurant = await restaurants.findOne({ id: id });
+    // console.log("Restaurant found:", restaurant); // 调试输出
+
+    // 如果 id 是字符串类型
+    // const restaurant = await restaurants.findOne({ _id: ObjectId(id) });
+
+    if (!restaurant) {
+      return res.status(404).send({ message: 'Restaurant not found with the provided id.' });
+    }
+
+    res.json(restaurant);
+  } catch (e) {
+    res.status(500).send("Error fetching restaurant: " + e.message);
+  } finally {
+    await client.close();
+  }
+});
+
 app.post('/api/restaurants/:id/like', async (req, res) => {
   const { id } = req.params; // 这是URL中传递的自定义id
   const { like } = req.body;

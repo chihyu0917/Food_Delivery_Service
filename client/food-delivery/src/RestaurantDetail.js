@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './App.css';
 import { useParams } from 'react-router-dom';
 
 
@@ -72,11 +73,34 @@ const Menulist = ({ id, name, price, description, image }) => {
 }
 
 const RestaurantDetail = () => {
-  return (
-        <div className="restaurant1">
+    const { id } = useParams(); // 获取路由参数中的id
+    const [restaurant, setRestaurant] = useState(null);
+    console.log(id);
+
+    useEffect(() => {
+        // 根据id获取餐厅详细信息，这里是个示例，您需要根据实际API调整
+        fetch(`http://localhost:3001/api/restaurants/${id}`)
+        .then(response => response.json())
+        .then(data => setRestaurant(data))
+        .catch(error => console.error('Error fetching details:', error));
+    }, [id]);
+    
+
+    if (!restaurant) {
+        return <div>Loading...</div>;
+      }
+
+    return (
+        <div className="restaurant-detail">
             <main>
                 <div className="listtitle">
-                  <h3>Popular Menu</h3>
+                    <h1>{restaurant.name}</h1>
+                    <p className="offer">{restaurant.offer}</p>
+                    <div className="rating">
+                        <span>{restaurant.rating}</span>
+                        <span>({restaurant.reviews})</span>
+                    </div>
+                    <h2>Popular Menu</h2>
                 </div>
                 <section className="menu-list">
                     {PopularMenu.map((menu) => (
@@ -84,7 +108,7 @@ const RestaurantDetail = () => {
                     ))}
                 </section>
                 <div className="listtitle">
-                  <h3>Single Menu</h3>
+                  <h2>Single Menu</h2>
                 </div>
                 <section className="menu-list">
                     {SingleMenu.map((menu) => (
