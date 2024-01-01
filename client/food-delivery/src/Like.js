@@ -2,13 +2,33 @@ import React, { useState, useEffect } from 'react';
 // import './App.css'; // 假設你有一個App.css文件來添加CSS樣式
 // import adsImage from './images/ads.gif';
 
-const RestaurantCard = ({ name, rating, reviews, category, offer, image, like }) => {
+const RestaurantCard = ({ id, name, rating, reviews, category, offer, image, like }) => {
     // 状态钩子用于跟踪爱心是否被点击
-    const [isFavorite, setIsFavorite] = useState(like === 'True');
+    // const [isFavorite, setIsFavorite] = useState(false);
+    const [isFavorite, setIsFavorite] = useState(like === 'true');
   
     // 点击处理函数切换爱心状态
+    // const toggleFavorite = () => {
+    //   setIsFavorite(!isFavorite);
+    // };
     const toggleFavorite = () => {
-      setIsFavorite(!isFavorite);
+        const newFavoriteStatus = !isFavorite;
+        setIsFavorite(newFavoriteStatus);
+      
+        fetch(`http://localhost:3001/api/restaurants/${id}/like`, {
+          method: 'POST', // 或者 'PUT', 根据您的API设计
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ like: newFavoriteStatus }),
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Success:', data);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
     };
   
     return (
@@ -54,7 +74,7 @@ const Like = () => {
 	useEffect(() => {
 		// 假设 fetchRestaurants() 是一个获取所有餐厅数据的函数
 		fetchRestaurants().then(data => {
-		const filteredData = data.filter(restaurant => restaurant.like === 'True');
+		const filteredData = data.filter(restaurant => restaurant.like === 'true');
 		setLikedRestaurants(filteredData);
 		});
 	}, []);
