@@ -1,6 +1,6 @@
-# Food Delivery Service
+# Food Delivery Service - Gourmet Go Xindian
 
-A food delivery service website, using MongoDB (NoSQL) as database, with the frontend and backend implemented by React.js and Node.js . Selecting one restaurant and your meal in each restaurant, and adding some restaurants to your favorite. 
+A food delivery service website for food in Xindian, using MongoDB (NoSQL) as database, with the frontend and backend implemented by React.js and Node.js . Selecting one restaurant and your meal in each restaurant, and adding some restaurants to your favorite. 
 Simulating usual food delivery app, such as Uber Eats and Foodpanda.
 
 ## Table of Contents
